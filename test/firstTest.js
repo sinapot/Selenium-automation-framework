@@ -1,4 +1,4 @@
-const { should } = require('chai');
+const { should, expect } = require('chai');
 const { Builder } = require('selenium-webdriver');
 require('chromedriver')
 
@@ -13,10 +13,8 @@ require('chromedriver')
             //get page title
             const pageTitle = await driver.getTitle()
 
-            //log page Title
-            console.log(pageTitle);
-
             //assertion
-            pageTitle.should.be.a.string();
+            await expect(pageTitle).to.be.a('string');
+
         });
       });

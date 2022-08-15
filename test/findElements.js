@@ -1,38 +1,50 @@
-const { expect } = require('chai');
-const { Builder } = require('selenium-webdriver');
+const { expect} = require('chai');
+const { By, Builder } = require('selenium-webdriver');
+const assert = require("assert");
 require('chromedriver')
 
-  describe('finding Elemetns using CSS Selector', function () {
+describe('finding Elemetns using CSS Selector', function () {
 
-      it('first test', async()=> {
-            //Start the session
-            let driver = await new Builder().forBrowser('chrome').build()
+    let driver;
+    before(async function () {
+        //Start the session
+        driver = await new Builder().forBrowser('chrome').build()
+    })
 
-            //Take action on browser
-            await driver.get('http://automationpractice.com/index.php');
+    //End session
+    after(() => driver.quit());
 
-            //Request browser information
-            const pageTitle = await driver.getTitle()
+    it.only('first test', async () => {
 
-            //Establish Waiting Strategy
-            await driver.manage().setTimeouts({ implicit: 5000 });
+        //Take action on browser
+        await driver.get('http://automationpractice.com/index.php');
 
-            //Find an element 
-            //let searchBox = await driver.findElement(By.name('text'));
-            //let searchButton = await driver.findElement(By.id('submitbtn'));
+        //Request browser information
+        const pageTitle = await driver.getTitle()
 
-            //Take action on element
-            //await searchBox.sendKeys('Selenium');
-            //await searchButton.click();
+        //Establish Waiting Strategy
+        await driver.manage().setTimeouts({ implicit: 5000 });
 
-            //Request element information
-            //let value = await searchBox.getText();
-
-            //assertion
-            await expect(pageTitle).to.be.a('string');
-
-            //end session
-            //after(() => driver.quit)
-            await driver.quit()
-        });
-      });
+        //assertion
+        await expect(pageTitle).to.be.a('string');
+        await console.log(pageTitle)
+        //Find an element 
+        let searchBox = await driver.findElement(By.css('#search_query_top'))
+        let searchButton = await driver.findElement(By.css("button[name='submit_search']"))
+        
+        //Take action on element
+        await searchBox.sendKeys('Blouse');
+        await searchButton.click();
+        
+        //Establish Waiting Strategy
+        //await driver.manage().setTimeouts({ implicit: 5000 });
+        
+        
+        //asssert
+        const navPageValue = await driver.findElement(By.css('.navigation_page'));
+        await console.log(navPageValue)
+        //assert.ok(navPageValue.includes('Search'))
+        //await expect(navPageValue).to.equal('Search');
+        //await expect(navPageValue).to.be.a('string');
+    });
+});

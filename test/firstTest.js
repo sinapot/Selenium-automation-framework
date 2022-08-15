@@ -3,10 +3,16 @@ const { Builder } = require('selenium-webdriver');
 require('chromedriver')
 
   describe('first selenium test with mocha', function () {
-      it('first test', async()=> {
-            //wait for browser to build and launch
-            let driver = await new Builder().forBrowser('chrome').build()
 
+      let driver;
+      before( async function(){
+            driver = await new Builder().forBrowser('chrome').build()
+      })
+
+      //End session
+      after(() => driver.quit);
+
+      it('first test', async function(){
             //open test website
             await driver.get('http://automationpractice.com/index.php');
 
@@ -14,7 +20,6 @@ require('chromedriver')
             const pageTitle = await driver.getTitle()
 
             //assertion
-            await expect(pageTitle).to.be.a('string');
-            await driver.quit()
+            await expect(pageTitle).to.be.a('string');            
         });
       });

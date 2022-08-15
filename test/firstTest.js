@@ -1,4 +1,4 @@
-const { should, expect } = require('chai');
+const { expect } = require('chai');
 const { Builder } = require('selenium-webdriver');
 require('chromedriver')
 
@@ -15,6 +15,6 @@ require('chromedriver')
 
             //assertion
             await expect(pageTitle).to.be.a('string');
-
+            await driver.quit()
         });
       });

@@ -3,6 +3,9 @@ const { Builder } = require('selenium-webdriver');
 require('chromedriver')
 
   describe('first selenium test with mocha', function () {
+      
+      //disable timeout as where using async awaits, this simulates --no-timeouts option when running tests from CLI
+      this.timeout(0)
 
       let driver;
       before( async function(){
@@ -10,7 +13,10 @@ require('chromedriver')
       })
 
       //End session
-      after(() => driver.quit);
+      after(async function(){
+            await driver.close();
+            await driver.quit();
+        });
 
       it('first test', async function(){
             //open test website
@@ -20,6 +26,9 @@ require('chromedriver')
             const pageTitle = await driver.getTitle()
 
             //assertion
-            await expect(pageTitle).to.be.a('string');            
+            await expect(pageTitle).to.be.a('string');    
+            
+
+            
         });
       });

@@ -15,14 +15,11 @@ describe('finding Elemetns using CSS Selector', function () {
     
     //End session
     after(async function(){
-        await driver.close();
         await driver.quit();
     });
     
     it('using CSS selectors', async () => {
         
-        driver = await new Builder().forBrowser('chrome').build()
-
         //Take action on browser
         await driver.get('http://automationpractice.com/index.php');
 

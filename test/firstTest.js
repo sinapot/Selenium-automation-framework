@@ -14,7 +14,6 @@ require('chromedriver')
 
       //End session
       after(async function(){
-            await driver.close();
             await driver.quit();
         });
 

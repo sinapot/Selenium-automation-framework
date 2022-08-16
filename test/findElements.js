@@ -1,6 +1,5 @@
-const { expect} = require('chai');
+const { expect, should } = require('chai');
 const { By, Builder } = require('selenium-webdriver');
-const assert = require("assert");
 require('chromedriver')
 
 describe('finding Elemetns using CSS Selector', function () {
@@ -41,10 +40,11 @@ describe('finding Elemetns using CSS Selector', function () {
         
         
         //asssert
-        const navPageValue = await driver.findElement(By.css('.navigation_page'));
+        const navPage = await driver.findElement(By.css('.navigation_page'));
+        const navPageValue = await navPage.getText()
         await console.log(navPageValue)
-        //assert.ok(navPageValue.includes('Search'))
-        //await expect(navPageValue).to.equal('Search');
-        //await expect(navPageValue).to.be.a('string');
+
+        await expect(navPageValue).to.equal('Search')
+
     });
 });

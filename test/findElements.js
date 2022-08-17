@@ -3,9 +3,8 @@ const { By, Builder } = require('selenium-webdriver');
 require('chromedriver')
 
 describe('finding Elemetns using CSS Selector', function () {
-      //disable timeout as where using async awaits, this simulates --no-timeouts option when running tests from CLI
-    
-    this.timeout(0)
+    //disable timeout as where using async awaits, this simulates --no-timeouts option when running tests from CLI
+    //this.timeout(0)
     let driver;
     //this.timeout(15000); 
     before(async function () {

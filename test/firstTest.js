@@ -5,7 +5,7 @@ require('chromedriver')
   describe('first selenium test with mocha', function () {
       
       //disable timeout as where using async awaits, this simulates --no-timeouts option when running tests from CLI
-      this.timeout(0)
+      //this.timeout(0)
 
       let driver;
       before( async function(){

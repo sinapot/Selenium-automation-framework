@@ -6,6 +6,6 @@
 // Otherwise, JSON or YAML is recommended.
 
 module.exports = {
-  parallel: 4,
+  parallel: false,
   timeout: '0', //no timeouts as were doing async await
 };

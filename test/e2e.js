@@ -1,3 +1,7 @@
+//This E2E test case covers interaction with below elements and uses Page Object Model:
+//checkboxes, text fields, buttons, links
+
+
 const { expect } = require('chai');
 const { By, Builder, until } = require('selenium-webdriver');
 require('chromedriver')
@@ -43,8 +47,7 @@ describe('E2E', function () {
         await myAccountPage.homeButton.click()
 
         //gets the first element containing Blouse
-        const blouse = await driver.findElement(By.css('[title="Blouse"]'));
-        await blouse.click()
+        await homePage.blouse.click();
         //add to Cart
         const addToCart = await driver.findElement(By.css("button[name='Submit'] span"));
         await addToCart.click();

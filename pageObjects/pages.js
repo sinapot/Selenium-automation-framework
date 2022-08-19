@@ -1,7 +1,6 @@
 const { By } = require('selenium-webdriver');
 
-
-class MyAccountPage{
+class Pages{
 
     constructor(driver){
         this.driver = driver;
@@ -9,6 +8,5 @@ class MyAccountPage{
         this.homeButton = driver.findElement(By.css("a[title='Return to Home']"))
        
     }
-
 }
-module.exports = { MyAccountPage}
+module.exports = { Pages }

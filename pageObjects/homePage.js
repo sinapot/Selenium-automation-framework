@@ -11,5 +11,6 @@ class HomePage{
         this.blouse = driver.findElement(By.css('[title="Blouse"]'));
     }
 
+
 }
 module.exports = { HomePage}

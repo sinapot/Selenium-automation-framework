@@ -1,5 +1,5 @@
 //This E2E test case covers interaction with below elements and uses Page Object Model:
-//checkboxes, text fields, buttons, links
+//checkboxes, text fields, buttons, links, and iFrames
 
 
 const { expect } = require('chai');
@@ -13,42 +13,45 @@ describe('E2E', function () {
 
     let driver;
     
-    before(async function () {
-        //Start the session
-        driver = await new Builder().forBrowser('chrome').build()
-        await driver.get('http://automationpractice.com/index.php');
+        before(async function () {
+            //Start the session
+            driver = await new Builder().forBrowser('chrome').build()
+            await driver.manage().setTimeouts({ implicit: 65000 });
+            await driver.get('http://automationpractice.com/index.php');
+            
+        })
+    
+        // //End session
+        // after(async function () {
+        //     await driver.quit();
+        // });
         
-        //await driver.get('http://automationpractice.com/index.php?controller=authentication&back=my-account');
-    })
-
-    //End session
-    after(async function () {
-        await driver.quit();
-    });
-
-    it('E2E - Sign In', async () => {
-
-        //this took me two days to know the importance of synchronization in Selenium
-        await driver.manage().setTimeouts({ implicit: 65000 });
-                
+        it('E2E - Sign In', async function(){
+        
         const homePage = new HomePage(driver);
+        //this took me two days to know the importance of synchronization in Selenium
         await homePage.signInButton.click();
-                
+        
         const signInPage = new SignInPage(driver);
         await signInPage.email.sendKeys('alon@sharklasers.com');
         await signInPage.password.sendKeys('alonalon')
         await signInPage.signInButton.click();
-
+        
         //verify My account page is displayed
         const myAccountPage = new MyAccountPage(driver);
         const myaccountPageValue = await myAccountPage.myaccount.getText();
         await expect(myaccountPageValue).to.equal('My account')
-
         await myAccountPage.homeButton.click()
 
-        //gets the first element containing Blouse
-        await homePage.blouse.click();
-        //add to Cart
+        //went back to Home Page again
+        const homePage1 = new HomePage(driver);
+        await homePage1.blouse.click();
+
+        //iFRAME was added!!!!!!
+        //switch to iFRAME
+        const iframe = await driver.findElement(By.css('#fancybox-frame1660954478156'));
+        await driver.switchTo().frame(iframe);
+        //click Add to Cart
         const addToCart = await driver.findElement(By.css("button[name='Submit'] span"));
         await addToCart.click();
         //proceed to Checkout

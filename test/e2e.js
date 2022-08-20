@@ -8,6 +8,7 @@ require('chromedriver')
 const { MyAccountPage } = require('../pageObjects/myAccountPage');
 const { SignInPage } = require('../pageObjects/signInPage');
 const { HomePage } =  require('../pageObjects/homePage');
+const { IFrame } = require('../pageObjects/iFrame');
 
 describe('E2E', function () {
 
@@ -21,10 +22,10 @@ describe('E2E', function () {
             
         })
     
-        // //End session
-        // after(async function () {
-        //     await driver.quit();
-        // });
+        //End session
+        after(async function () {
+            await driver.quit();
+        });
         
         it('E2E - Sign In', async function(){
         
@@ -43,20 +44,22 @@ describe('E2E', function () {
         await expect(myaccountPageValue).to.equal('My account')
         await myAccountPage.homeButton.click()
 
-        //went back to Home Page again
+        //this POM pattern takes longer to execute
         const homePage1 = new HomePage(driver);
         await homePage1.blouse.click();
 
-        //iFRAME was added!!!!!!
         //switch to iFRAME
-        const iframe = await driver.findElement(By.css('#fancybox-frame1660954478156'));
-        await driver.switchTo().frame(iframe);
-        //click Add to Cart
+        const iframe1 = new IFrame(driver);
+        await driver.switchTo().frame(iframe1.iframe);
+        // await iframe1.addtocart.click();
+        // await iframe1.close.click();
+
+        //click iFrame Add to Cart
         const addToCart = await driver.findElement(By.css("button[name='Submit'] span"));
         await addToCart.click();
-        //proceed to Checkout
+        //close iFrame modal
         const closeButton = await driver.findElement(By.css("span[title='Close window']"));
-        closeButton.click()
+        await closeButton.click()
 
         //click Cart
         const cart = await driver.findElement(By.css("a[title='View my shopping cart']"));

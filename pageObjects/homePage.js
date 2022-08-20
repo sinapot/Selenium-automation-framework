@@ -1,8 +1,6 @@
 const { By } = require('selenium-webdriver');
 
-
 class HomePage{
-
     constructor(driver){
         this.driver = driver;
         this.signInButton = driver.findElement(By.css(".login"))
@@ -10,7 +8,5 @@ class HomePage{
         this.searchButton = driver.findElement(By.css("button[name='submit_search']"));
         this.blouse = driver.findElement(By.css('[title="Blouse"]'));
     }
-
-
 }
 module.exports = { HomePage}

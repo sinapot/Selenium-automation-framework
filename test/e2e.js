@@ -1,7 +1,6 @@
 //This E2E test case covers interaction with below elements and uses Page Object Model:
 //checkboxes, text fields, buttons, links, and iFrames
 
-
 const { expect } = require('chai');
 const { By, Builder, until } = require('selenium-webdriver');
 require('chromedriver')
@@ -11,15 +10,12 @@ const { HomePage } =  require('../pageObjects/homePage');
 const { IFrame } = require('../pageObjects/iFrame');
 
 describe('E2E', function () {
-
     let driver;
-    
         before(async function () {
             //Start the session
             driver = await new Builder().forBrowser('chrome').build()
             await driver.manage().setTimeouts({ implicit: 65000 });
             await driver.get('http://automationpractice.com/index.php');
-            
         })
     
         //End session
